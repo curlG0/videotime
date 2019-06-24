@@ -2,18 +2,18 @@ import cv2
 import math
 
 
-count = 0
-videoFile = "LMFAO.mp4"
-cap = cv2.VideoCapture(videoFile)   # capturing the video from the given path
-frameRate = cap.get(5) #frame rate
-x=1
-while(cap.isOpened()):
-    frameId = cap.get(1) #current frame number
-    ret, frame = cap.read()
-    if (ret != True):
-        break
-    if (frameId % math.floor(frameRate) == 0):
-        filename ="frame%d.jpg" % count;count+=1
-        cv2.imwrite(filename, frame)
-cap.release()
-print ("Done!")
+def split(video_file: str, frame_dir: str):
+    count = 0
+    cap = cv2.VideoCapture(video_file)  # capturing the video from the given path
+    frame_rate = cap.get(5)  # frame rate
+    while cap.isOpened():
+        frame_id = cap.get(1)  # current frame number
+        ret, frame = cap.read()
+        if ret != True:
+            break
+        if frame_id % math.floor(frame_rate) == 0:
+            filename = "%s/frame%d.jpg" % (frame_dir, count)
+            count += 1
+            cv2.imwrite(filename, frame)
+    cap.release()
+    print("Done!")
