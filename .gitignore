@@ -2,4 +2,8 @@
 .idea
 *.iml
 
-__pycache__
+# Python
+build/
+__pycache__/
+*.egg-info/
+dist/

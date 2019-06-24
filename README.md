@@ -1,20 +1,34 @@
 # VideoMe
 
+## Installation
+
+```
+./setup.py install
+```
+
+Run:
+
+```
+videtime
+```
+
 ## Dev setup
+
+Setup conda environment:
+```
+conda create -n VideoTime python=3.7
+conda activate VideoTime
+```
+
+Install dependencies:
 
 ```
 conda install nwani::portaudio nwani::pyaudio
 pip install -r requirements.txt
 ```
 
-### Mac
+## Run tests
 
 ```
-brew install portaudio
-```
-
-### Ubuntu/Debian
-
-```
-sudo apt-get install python3-pyaudio
+./setup.py test
 ```
