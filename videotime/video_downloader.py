@@ -6,5 +6,9 @@ def download_video(url: str, output: str):
         'outtmpl': output
     }
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        out = ydl.download([url])
-        print(out)
+        ydl.download([url])
+
+
+def get_info(url: str):
+    with youtube_dl.YoutubeDL({}) as ydl:
+        return ydl.extract_info(url, download=False, force_generic_extractor=False)
