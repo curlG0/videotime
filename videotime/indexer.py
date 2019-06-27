@@ -1,7 +1,7 @@
 import logging
 
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Text, Document, Search, Long
+from elasticsearch_dsl import Text, Document, Search, Long, Keyword
 from elasticsearch_dsl.connections import connections
 from urllib3.exceptions import NewConnectionError
 
@@ -15,10 +15,10 @@ YOUTUBE_VIDEO_INDEX = "videos"
 
 
 class YoutubeVideo(Document):
-    title = Text()
+    title = Keyword()
     description = Text()
     semantic = Text()
-    url = Text()
+    url = Keyword()
 
     class Index:
         name = YOUTUBE_VIDEO_INDEX
@@ -28,10 +28,10 @@ class YoutubeVideo(Document):
 
 
 class YoutubeVideoFrame(Document):
-    title = Text()
+    title = Keyword()
     description = Text()
     semantic = Text()
-    url = Text()
+    url = Keyword()
     frame_number = Long()
 
     class Index:
@@ -42,9 +42,7 @@ class YoutubeVideoFrame(Document):
 
 
 def search_video(url):
-    s = Search(using=client, index=YOUTUBE_VIDEO_INDEX)\
-        .filter("term", category="search")\
-        .query("match", title="python")
+    s = Search(using=client, index=YOUTUBE_VIDEO_INDEX).query("term", url=url)
     return s.execute()
 
 

@@ -1,7 +1,11 @@
 import logging
-from videotime.resources import app
-from videotime.video_manager import VideoManager
 
+import yaml
+
+from videotime.resources import app
+from videotime.video_manager import manager
+
+CONFIG_FILE = "configs/config.yml"
 
 def main():
     logging.basicConfig(level=logging.DEBUG,
@@ -9,10 +13,12 @@ def main():
     log = logging.getLogger('main')
     log.info("Starting videotime...")
 
-    video_manager = VideoManager()
-    video_manager.process_video("https://www.youtube.com/watch?v=De8vZW8ws6o")
-    video_manager.process_video("https://www.youtube.com/watch?v=bzZEH_5OuIs")
 
+    with open(CONFIG_FILE) as f:
+        config = yaml.safe_load(f)
+
+    for video_url in config['preload']:
+        manager.process_video(video_url)
 
     app.run()
 

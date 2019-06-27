@@ -1,4 +1,5 @@
 import logging
+import threading
 
 from videotime.indexer import search_video
 from videotime.video_processor import VideoProcessor
@@ -16,8 +17,12 @@ class VideoManager:
             return
 
         processor = VideoProcessor(url)
-        processor.process()
+        t = threading.Thread(target=processor.process)
+        t.start()
 
     def is_processed(self, url: str) -> bool:
-        search_video(url)
-        return False
+        res = search_video(url)
+        return len(res.hits) > 0
+
+
+manager = VideoManager()
