@@ -4,6 +4,7 @@ import logging
 import tempfile
 from os.path import join
 
+from videotime.indexer import YoutubeVideo
 from videotime.semantic_extractors.image_extractor import extract
 from videotime.video_downloader import download_video, get_info
 from videotime.video_splitter import split
@@ -34,8 +35,15 @@ class VideoManager:
             total_semantic = ""
             for image in os.listdir(frame_dir):
                 semantic = extract(join(frame_dir, image))
-                self.log.info("Semantic of frame %s is: %s" % (image, semantic))
-                total_semantic += semantic + ". "
+                total_semantic += "%s \n" % semantic
+
+            video = YoutubeVideo(
+                title=info['title'],
+                url=url,
+                semantic=total_semantic,
+                description=info['description'])
+            video.save()
+            self.log.info("Indexed video: %s" % info['title'])
 
         self.mark_as_processed(info['id'])
 

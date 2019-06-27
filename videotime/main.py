@@ -11,6 +11,8 @@ def main():
 
     video_manager = VideoManager()
     video_manager.process_video("https://www.youtube.com/watch?v=De8vZW8ws6o")
+    video_manager.process_video("https://www.youtube.com/watch?v=bzZEH_5OuIs")
+
 
     app.run()
 

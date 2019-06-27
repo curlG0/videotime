@@ -2,4 +2,4 @@ youtube-dl==2019.6.8
 Flask==1.0.2
 SpeechRecognition==3.8.1
 opencv-python==4.1.0.25
-
+elasticsearch-dsl==7.0.0
