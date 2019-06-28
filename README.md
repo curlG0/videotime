@@ -35,6 +35,13 @@ pip install -r requirements.txt
 
 ## Usage
 
+### Run locally
+
+```
+docker-compose up -d dejavu
+python -m videotime.main
+```
+
 ### Process new videos
 
 ```

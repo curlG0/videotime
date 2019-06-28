@@ -1,11 +1,15 @@
 import logging
+import os
 
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Text, Document, Search, Long, Keyword
 from elasticsearch_dsl.connections import connections
 from urllib3.exceptions import NewConnectionError
 
-connections.create_connection(hosts=['localhost'])
+host = os.getenv('elasticsearch_host', 'localhost')
+
+print("Connecting to %s" % host)
+connections.create_connection(hosts=[host])
 
 logging.getLogger('elasticsearch').setLevel(logging.INFO)
 log = logging.getLogger(__name__)
@@ -46,10 +50,15 @@ def search_video(url):
     return s.execute()
 
 
-try:
-    YoutubeVideo.init()
-    YoutubeVideoFrame.init()
-except NewConnectionError as e:
-    log.error("Error while connecting to elastic search", e)
-    exit(1)
+def init():
+    for i in range(0, 5):
+        try:
+            YoutubeVideo.init()
+            YoutubeVideoFrame.init()
+            return
+        except NewConnectionError as e:
+            log.warning("Error while connecting to elastic search. Retrying..")
+    log.error("Error while connecting to elastic search.")
 
+
+init()

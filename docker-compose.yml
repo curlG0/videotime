@@ -1,7 +1,9 @@
 version: '3'
 services:
-  worker:
+  videotime:
     build: .
+    environment:
+      - elasticsearch_host=elasticsearch
     ports:
       - "5000:5000"
     volumes:
