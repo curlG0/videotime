@@ -18,7 +18,7 @@ class ProcessVideoSchema(RequestSchema):
 
 @registry.handles(rule="/")
 def hello():
-    return "VideoMe!"
+    return "VideoTime! www.videotime.me"
 
 
 @registry.handles(rule="/process",
