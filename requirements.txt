@@ -5,3 +5,7 @@ opencv-python==4.1.0.25
 elasticsearch-dsl==7.0.0
 PyYAML==5.1.1
 flask-rebar==1.8.1
+torch==1.1.0
+h5py==2.9.0
+scikit-image==0.15.0
+torchvision==0.3.0
