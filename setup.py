@@ -17,9 +17,11 @@ setup(
     include_package_data=True,
     license='MIT',
     description='Semantic media search and recommendation',
+    test_suite = 'nose.collector',
     entry_points={
         'console_scripts': [
             'videotime = videotime.main:main',
         ]
     }
 )
+
